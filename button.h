@@ -2,6 +2,7 @@
 #define BUTTON_H
 #include <SDL.h>
 #include <SDL_image.h>
+#include "Mouse.h"
 
 
 class button
@@ -13,7 +14,7 @@ class button
 		SDL_Renderer *render;
 		button();
 		virtual ~button();
-		void draw();
+		bool draw();
 };
 
 #endif
