@@ -1,15 +1,15 @@
-# Project: Project1
+# Project: game_cpp
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = button.o main.o Mouse.o
-LINKOBJ  = button.o main.o Mouse.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -L"C:/Users/Mohamed/Downloads/SDL2_image-devel-2.6.2-mingw/SDL2_image-2.6.2/x86_64-w64-mingw32/lib" -L"C:/Users/Mohamed/Downloads/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/lib" -static-libgcc -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+OBJ      = main.o button.o Mouse.o justessay.o avatar.o ResourceManager.o
+LINKOBJ  = main.o button.o Mouse.o justessay.o avatar.o ResourceManager.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -L"C:/Users/Mohamed/Downloads/SDL2_image-devel-2.6.2-mingw/SDL2_image-2.6.2/x86_64-w64-mingw32/lib" -L"C:/Users/Mohamed/Downloads/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/lib" -L"C:/Users/Mohamed/Downloads/SDL2_mixer-2.6.2/x86_64-w64-mingw32/lib" -static-libgcc -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/Mohamed/Downloads/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/include/SDL2" -I"C:/Users/Mohamed/Downloads/SDL2_image-devel-2.6.2-mingw/SDL2_image-2.6.2/x86_64-w64-mingw32/include/SDL2"
-BIN      = Project1.exe
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/Mohamed/Downloads/SDL2-devel-2.26.1-mingw/SDL2-2.26.1/x86_64-w64-mingw32/include/SDL2" -I"C:/Users/Mohamed/Downloads/SDL2_image-devel-2.6.2-mingw/SDL2_image-2.6.2/x86_64-w64-mingw32/include/SDL2" -I"C:/Users/Mohamed/Downloads/SDL2_mixer-2.6.2/x86_64-w64-mingw32/include/SDL2"
+BIN      = game_cpp.exe
 CXXFLAGS = $(CXXINCS) -std=gnu++11
 CFLAGS   = $(INCS) -std=gnu++11
 RM       = rm.exe -f
@@ -24,11 +24,20 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-button.o: button.cpp
-	$(CPP) -c button.cpp -o button.o $(CXXFLAGS)
-
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
+button.o: button.cpp
+	$(CPP) -c button.cpp -o button.o $(CXXFLAGS)
+
 Mouse.o: Mouse.cpp
 	$(CPP) -c Mouse.cpp -o Mouse.o $(CXXFLAGS)
+
+justessay.o: justessay.cpp
+	$(CPP) -c justessay.cpp -o justessay.o $(CXXFLAGS)
+
+avatar.o: avatar.cpp
+	$(CPP) -c avatar.cpp -o avatar.o $(CXXFLAGS)
+
+ResourceManager.o: ResourceManager.cpp
+	$(CPP) -c ResourceManager.cpp -o ResourceManager.o $(CXXFLAGS)

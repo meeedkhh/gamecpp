@@ -2,18 +2,18 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
+#include <SDL_mixer.h>
 #include "button.h"
 #include "Mouse.h"
 #define WIDTH 1280
 #define HEIGHT 720
+#include "justessay.cpp"
 
 using namespace std;
 typedef struct{
 	SDL_Texture *mous;
 	SDL_Rect mrect;
 	SDL_Rect point;
-
-	
 }mous2;
 
 typedef struct{
@@ -23,13 +23,15 @@ typedef struct{
 }button1;
 
 
+
+
 int main(int argc, char* argv[]) {
 
 	// variable declarations
 	SDL_Window* win = NULL;
 	SDL_Renderer* renderer = NULL;
 	SDL_Texture* img = NULL;
-
+	SDL_Texture* img1 = NULL;
 	// Initialize SDL.
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return 1;
@@ -57,18 +59,27 @@ int main(int argc, char* argv[]) {
 	
 
 	// load our image
-	img = IMG_LoadTexture(renderer, "C:/Users/Mohamed/Documents/k/screen2.jpg");
+	img = IMG_LoadTexture(renderer, "C:/Users/Mohamed/Documents/k/MENU_GAME.png");
 	
 	if (img == nullptr) {
 		std::cout << "IMG_LoadTexture Error: " << SDL_GetError() << "\n";
 		return 1;
 	}
-
+	
+	// load our image
+	img1 = IMG_LoadTexture(renderer, "C:/Users/Mohamed/Documents/k/screen2.jpg");
+	
+	if (img1 == nullptr) {
+		std::cout << "IMG_LoadTexture Error: " << SDL_GetError() << "\n";
+		return 1;
+	}
 
 	int w, h; // texture width & height
 	SDL_QueryTexture(img, NULL, NULL, &w, &h); // get the width and height of the texture
 	// put the location where we want the texture to be drawn into a rectangle
 	// I'm also scaling the texture 2x simply by setting the width and height
+
+	SDL_QueryTexture(img1, NULL, NULL, &w, &h);
 	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = w; texr.h = h;
 
 	unsigned int lastUpdateTime = 0;
@@ -95,13 +106,13 @@ int main(int argc, char* argv[]) {
 	start1.drect.y=200;
 	
 	button1 exit ;
-	// loading the image of start button 
+	// loading the image of exit button 
 	exit.tex = IMG_LoadTexture(renderer,"C:/Users/Mohamed/Desktop/pro_s3/buttons2.png");
 	if (start1.tex == nullptr) {
 		std::cout << "IMG_LoadTexture Error: " << SDL_GetError() << "\n";
 		return 1;
 	}
-	// rect that will contain the start button image 
+	// rect that will contain the exit button image 
 	exit.srect.h=100;
 	exit.srect.w=400;
 	exit.srect.x=0;
@@ -111,11 +122,26 @@ int main(int argc, char* argv[]) {
 	exit.drect.h=75;
 	exit.drect.w=300;
 	exit.drect.x=1280/2 -200;
-	exit.drect.y=500;
+	exit.drect.y=440;
 	
+	button1 options;
+	// loading the image of exit button 
+	options.tex = IMG_LoadTexture(renderer,"C:/Users/Mohamed/Desktop/pro_s3/buttons2.png");
+	if (options.tex == nullptr) {
+		std::cout << "IMG_LoadTexture Error: " << SDL_GetError() << "\n";
+		return 1;
+	}
+	// rect that will contain the options button image 
+	options.srect.h=100;
+	options.srect.w=400;
+	options.srect.x=0;
+	options.srect.y=300;
 	
-	
-	
+	// rect for the place where we want the options button to show 
+	options.drect.h=75;
+	options.drect.w=300;
+	options.drect.x=1280/2 -200;
+	options.drect.y=320;
 	
 	// main loop
 	while (1) {
@@ -133,18 +159,24 @@ int main(int argc, char* argv[]) {
 	    if(SDL_HasIntersection(&(mous1.mrect) , &(start1.drect))){
 	        start1.isSelected = true;
 	        start1.srect.x = 400;   
-			cout<<"start selcted";     
 	    }
 	    else if(SDL_HasIntersection(&(mous1.mrect) , &(exit.drect))){
 	    	exit.isSelected=true;
 	    	exit.srect.x=400;
 	    	cout<<"exit selcted";
 		}
+		else if(SDL_HasIntersection(&(mous1.mrect) , &(options.drect))){
+	    	options.isSelected=true;
+	    	options.srect.x=400;
+	    	cout<<"options selcted";
+		}
 		else{
 	        start1.isSelected = false;
 	        start1.srect.x = 0;
 	        exit.isSelected=false;
 	    	exit.srect.x=0;
+	    	options.isSelected=false;
+	    	options.srect.x=0;
 	    }
 	    
 		// event handling
@@ -154,10 +186,21 @@ int main(int argc, char* argv[]) {
 				break;
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
 				break;
+			else if (e.type == SDL_KEYUP){
+				img=img1;
+			}
+			else if(e.type==SDL_MOUSEBUTTONDOWN && exit.isSelected==true){
+				img=IMG_LoadTexture(renderer, "C:/Users/Mohamed/Documents/k/MENU_GAME.png");
+			}
+			else if(e.type==SDL_MOUSEBUTTONDOWN && start1.isSelected==true){
+				game();
+			}
+		
+			
 		}
 
 		// paint the image once every 30ms, i.e. 33 images per second
-		if (lastUpdateTime + 30 < SDL_GetTicks()) {
+		if (lastUpdateTime + 30 < SDL_GetTicks() ) {
 			lastUpdateTime = SDL_GetTicks();
 
 			// clear the screen
@@ -166,8 +209,12 @@ int main(int argc, char* argv[]) {
 			
 			SDL_RenderCopy(renderer, img, NULL, &texr);
 			//rendering the start button and exit button
-			SDL_RenderCopy(renderer,start1.tex,&start1.srect,&start1.drect);
-			SDL_RenderCopy(renderer,exit.tex,&exit.srect,&exit.drect);
+			if(img1==img){
+				SDL_RenderCopy(renderer,start1.tex,&start1.srect,&start1.drect);
+				SDL_RenderCopy(renderer,exit.tex,&exit.srect,&exit.drect);
+				SDL_RenderCopy(renderer,options.tex,&options.srect,&options.drect);
+			}
+			
 			//rendering the texture of the cursor
 			SDL_RenderCopy(renderer, mous1.mous, NULL, &mous1.mrect);
 		
