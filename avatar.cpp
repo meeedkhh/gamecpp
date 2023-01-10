@@ -1,5 +1,6 @@
 #include "avatar.h"
 #include "ResourceManager.h"
+#include <iostream>
 
 avatar::avatar(SDL_Renderer*& render, std::string filepath){
 	
@@ -35,30 +36,10 @@ void avatar::Render(SDL_Renderer*&render){
 }
 
 
-void avatar::move(SDL_Event *event){
+void avatar::move1(SDL_Event event){
 
-	if(SDL_PollEvent(event)){
 		
-		if(event->type==SDL_KEYDOWN ){
-			if (event->key.keysym.sym == SDLK_a ) {
-                // handle keydown event for 'q' key
-                m_dst.x--;
-                
-            } 
-//			else if (event.key.keysym.sym == SDLK_s) {
-//	                // handle keydown event for 's' key
-//	                m_dst.y++;
-//	            }
-//			else if (event.key.keysym.sym == SDLK_d) {
-//	                // handle keydown event for 'd' key
-//	                m_dst.x++;
-//	            } 
-//			else if (event.key.keysym.sym == SDLK_w) {
-//	                // handle keydown event for 'z' key
-//	                m_dst.y--;
-//            }
-		}
 		
-	}
+	
 }
 

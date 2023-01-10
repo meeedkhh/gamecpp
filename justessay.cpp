@@ -35,7 +35,7 @@ static int game(){
 	}
 	
 	avatar avatar1(rengame,"./images/edited.bmp");
-	avatar1.draw(200,200,150,150);
+	
 
 	int w, h; // texture width & height
 	SDL_QueryTexture(img, NULL, NULL, &w, &h); // get the width and height of the texture
@@ -51,6 +51,8 @@ static int game(){
 
 		// event handling
 		SDL_Event ev;
+		int y=200;
+		int x=200;
 
 		if(SDL_PollEvent(&ev)){
 			if (ev.type==SDL_QUIT && ev.type==SDL_MOUSEBUTTONDOWN){
@@ -59,8 +61,41 @@ static int game(){
 			else if(ev.type==SDL_KEYUP && ev.key.keysym.sym== SDLK_SPACE){
 				break;
 			}
+			switch(ev.type){
+				case SDL_KEYDOWN:
+            if (ev.key.keysym.sym == SDLK_q) {
+                // handle keydown event for 'q' key
+                std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_s) {
+                // handle keydown event for 's' key
+                std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_d) {
+                // handle keydown event for 'd' key
+                std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_z) {
+                // handle keydown event for 'z' key
+                std::cout<<"siir";
+            }
+            break;
+        		case SDL_KEYUP:
+            if (ev.key.keysym.sym == SDLK_q) {
+                // handle keyup event for 'q' key
+            	std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_s) {
+                // handle keyup event for 's' key
+                std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_d) {
+                // handle keyup event for 'd' key
+                std::cout<<"siir";
+            } else if (ev.key.keysym.sym == SDLK_z) {
+                // handle keyup event for 'z' key
+                std::cout<<"siir";
+            }
+            break;
 		}
-
+			
+		}
+		avatar1.draw(x,y,150,150);
 		// paint the image once every 30ms, i.e. 33 images per second
 		if (lastUpdateTime + 30 < SDL_GetTicks()) {
 			lastUpdateTime = SDL_GetTicks();
@@ -74,7 +109,7 @@ static int game(){
 			
 			avatar1.PlayFrame(0,0,170,170,framenumber);
 			avatar1.Render(rengame);
-			avatar1.move(&ev);
+			avatar1.move1(ev);
 			framenumber++;
 			if(framenumber>6){
 				framenumber=0;

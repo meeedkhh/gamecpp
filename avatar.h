@@ -17,8 +17,8 @@ class avatar
         void Update();
         // Render
         void Render(SDL_Renderer*& render);
-        void move(SDL_Event *event);
-    protected:
+        void move1(SDL_Event event);
+//    protected:
     	SDL_Rect m_src;    // Where we're selecting from
         SDL_Rect m_dst;   // Where we are rendering
         SDL_Texture* m_texture;
